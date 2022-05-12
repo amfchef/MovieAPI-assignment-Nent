@@ -1,6 +1,6 @@
 class MovieAPI {
   /**
-   * The constructor will initialize a unique Id for each of the movies
+   * The constructor will initialize a unique id for each of the movies
    * and append it as properties to the object
    * @param moviesJson is an object with properties of different movies.
    */
@@ -36,8 +36,8 @@ class MovieAPI {
     const allGenres = []
     this.moviesJson.forEach((object) => {
       for (const key in object) {
-        if (key == 'genre') {
-          if (allGenres.includes(object[key]) == false) {
+        if (key === 'genre') {
+          if (allGenres.includes(object[key]) === false) {
             allGenres.push(object[key])
           }
         }
@@ -55,7 +55,7 @@ class MovieAPI {
     const returnByGenre = []
     this.moviesJson.forEach((object, i) => {
       for (const key in object) {
-        if (String(object[key]).toLowerCase() == genre.toLowerCase()) {
+        if (String(object[key]).toLowerCase() === genre.toLowerCase()) {
           console.log(object[key])
           returnByGenre.push(moviesJson[i].title)
         }
@@ -72,8 +72,8 @@ class MovieAPI {
     let movieExist = false
     this.moviesJson.forEach((object, i) => {
       for (const key in object) {
-        if (key == 'Id') {
-          if (object[key] == movieId) {
+        if (key === 'Id') {
+          if (object[key] === movieId) {
             movieExist = true
             console.log('Removing...', this.moviesJson[i].title)
             delete this.moviesJson[i]
@@ -91,7 +91,7 @@ class MovieAPI {
         }
       }
     })
-    if (movieExist == false)
+    if (movieExist === false)
       console.log('The ID number does not exist\nTry again')
   }
 
@@ -102,7 +102,7 @@ class MovieAPI {
   getMoviesWithoutSubThumb () {
     this.moviesJson.forEach((object, i) => {
       for (const key in object) {
-        if (key == 'thumb' || key == 'subtitle') {
+        if (key === 'thumb' || key === 'subtitle') {
           delete this.moviesJson[i][key]
           //console.log(this.moviesJson[i][key])
           //console.log(key)
@@ -125,20 +125,19 @@ class MovieAPI {
   /**
    * 5. A method that returns the movies sorted by name.
    * This method is case NOT case-sensitive
-   * @param path to the file you wish to update
    */
   returnsSortedMovies () {
     let sortedArray = this.getAllMovieTitles().sort(function (a, b) {
       let x = a.toUpperCase(),
         y = b.toUpperCase()
-      return x == y ? 0 : x > y ? 1 : -1
+      return x === y ? 0 : x > y ? 1 : -1
     })
     return sortedArray
   }
 
   /**
    * 6. A method that returns the 2 top rated movies and 2 bottom rated movies.
-   * @param newName of the title with the Id.
+   * @return topThreeMovies array
    */
   returnTopBottomRatedMovies () {
     let topThreeMovies = []
@@ -194,7 +193,7 @@ class MovieAPI {
           '\nPlease change the property of:', movieObject[item])
         return propertiesFilled
       }
-      if (((movieObject[item].length)) == 0) {
+      if (((movieObject[item].length)) === 0) {
         console.log('You forgot to add properties to:', item)
         propertiesFilled = false
         return propertiesFilled
@@ -207,23 +206,23 @@ class MovieAPI {
    * 9. A method that allows the user to add a new movie object to the movie list
    *   supply all properties but the “id” and “rating”. The “id” and “rating”
    *   properties should be added internally by the method.
-   * @param object append to the movie object file
+   * @param movieObject append to the movie object file
    */
   addMovies (movieObject) {
-    // Finding the highest Id number from previous json file,
-    // in case the file is not sorted by Id
+    // Finding the highest id number from previous json file,
+    // in case the file is not sorted by id
     let highestId = 0
     if (this.checkIfAllPropertiesAreFilled(movieObject) == true) {
       this.moviesJson.forEach((object, i) => {
         for (const key in object) {
-          if (key == 'Id') {
+          if (key === 'Id') {
             if (object[key] > highestId) {
               highestId = object[key]
             }
           }
         }
       })
-      // Assigning Id and rating to the new object, and write to a new updated json file
+      // Assigning id and rating to the new object, and write to a new updated json file
       movieObject.Id = highestId + 1
       movieObject.rating = Math.floor(Math.random() * 5) + 1
       this.moviesJson[highestId] = movieObject
@@ -247,14 +246,14 @@ class MovieAPI {
     //console.log(this.moviesJson)
     this.moviesJson.forEach((object, i) => {
       for (const key in object) {
-        if (key == 'Id' && object[key] == id) {
+        if (key === 'Id' && object[key] === id) {
           idFound = true
           console.log(moviesJson[i].title)
           return this.moviesJson[i].title
         }
       }
     })
-    if (idFound == false) {
+    if (idFound === false) {
       return 'Unable to find the movie by the Id:', id +
       '\nPlease try again'
     }
@@ -265,14 +264,14 @@ class MovieAPI {
    * (if found). The updated title should be sent in as an argument
    * to the method.
    * @param id of the movie, of which needs to be renamed
-   * @param newName of the title with the Id.
+   * @param newName of the title with the id.
    */
   renameMovieTitle (id, newName) {
     let idFound = false
     this.moviesJson.forEach((object, i) => {
       for (const key in object) {
-        if (key == 'Id') {
-          if (object[key] == id) {
+        if (key === 'Id') {
+          if (object[key] === id) {
             this.moviesJson[i].title = newName
             console.log(this.moviesJson[i].title)
             idFound = true
@@ -282,7 +281,7 @@ class MovieAPI {
       }
     })
     console.log(this.moviesJson)
-    if (idFound == false) {
+    if (idFound === false) {
       console.log('Unable to find the movie by the Id:', id +
         '\nPlease try again')
     }
@@ -352,7 +351,7 @@ const API = new MovieAPI(moviesJson)
 //console.log(API.getSortedMoviesByRating())
 
 // 9. A method that allows the user to add a new movie object to the movie list
-// (supply all properties but the “id” and “rating”. The “id” and “rating”
+// supply all properties but the “id” and “rating”. The “id” and “rating”
 // properties should be added internally by the method.
 //console.log(API.addMovies(addMovie)) // This addMovie parameter is a json file in the /.data/addMovie.json
 
