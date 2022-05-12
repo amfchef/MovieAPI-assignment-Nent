@@ -1,0 +1,10 @@
+{
+  "description": "A lovestory about a ship that sunk",
+  "sources": [
+    "http://imdb.com/titanic]"
+    ],
+  "subtitle": "A nice subtitle",
+  "thumb": "images/BigBuckBunny.jpg",
+  "title": "Titanic",
+  "genre": "Romantic"
+}
